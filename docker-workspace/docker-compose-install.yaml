@@ -1,0 +1,61 @@
+- name: "| Docker-compose | Get zsh path"
+  shell: which zsh
+  args:
+    executable: /bin/bash
+  register: zsh
+- name: Print out
+  debug:
+    var: zsh
+
+- name: "| Docker-compose | uname -s"
+  become_user: "{{ user }}"
+  shell: uname -s
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: uname_s
+- name: Print out
+  debug:
+    var: uname_s
+
+- name: "| Docker-compose | uname -m"
+  become_user: "{{ user }}"
+  shell: uname -m
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: uname_m
+- name: Print out
+  debug:
+    var: uname_m
+
+- name: "| Docker-compose | Download"
+  become_user: "{{ user }}"
+  shell: sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ uname_s.stdout }}-{{ uname_m.stdout }}" -o /usr/local/bin/docker-compose
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+- name: "| Docker-compose | Set permissions"
+  become_user: "{{ user }}"
+  shell: sudo chmod +x /usr/local/bin/docker-compose
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+- name: "| Docker-compose | Verify"
+  become_user: "{{ user }}"
+  shell: docker-compose --version
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+
+

@@ -1,0 +1,110 @@
+- name: "| Docker | Get zsh path"
+  shell: which zsh
+  args:
+    executable: /bin/bash
+  register: zsh
+- name: Print out
+  debug:
+    var: zsh
+
+- name: "| Docker | Install require library - Cert and Libs."
+  apt:
+    pkg:
+      - apt-transport-https 
+      - ca-certificates 
+      - curl 
+      - software-properties-common
+    update_cache: yes
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+- name: "| Docker | Add GPG key."
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+- name: "| Docker | Add the Docker repository to APT sources"
+  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+- name: "| Docker | Make sure you are about to install from the Docker repo instead of the default Ubuntu repo."
+  shell: apt-cache policy docker-ce
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+- name: "| Docker | Finally, install Docker."
+  apt:
+    pkg:
+      - docker-ce
+    update_cache: yes
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+- name: "| Docker | Check that it’s running."
+  shell: systemctl status docker
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+- name: "| Docker | Execute docker without sudo."
+  become_user: "{{ user }}"
+  shell: sudo usermod -aG docker {{ user }}
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+- name: "| Docker | Apply new group member, log out and back in."
+  become_user: "{{ user }}"
+  shell: sudo su - {{ user }}
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result    
+
+- name: "| Docker | Check user group."
+  become_user: "{{ user }}"
+  shell: groups
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result   
+
+- name: "| Docker | Verify Docker."
+  shell: docker info
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result   
+
+
+
+

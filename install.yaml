@@ -1,0 +1,15 @@
+---
+- name: Installation Workspace.
+  hosts: server
+  connection: local
+  gather_facts: false
+  become: true
+  vars:
+    user: "user"
+  environment:
+    GNUTLS_CPUID_OVERRIDE: 0x1
+
+  tasks:
+    - include: ./docker-workspace/docker-install.yaml
+    - include: ./docker-workspace/docker-compose-install.yaml
+
