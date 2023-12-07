@@ -1,0 +1,23 @@
+version: '2'
+services:
+ sftpgo:
+  image: drakkan/sftpgo
+  container_name: sftpgo
+  volumes:
+   - sftpgo-data:/srv/sftpgo
+   - sftpgo-home:/var/lib/sftpgo
+  ports:
+   - "30802:8080"
+   - "2022:2022"
+   - "2121:2121"
+   - "50000-50100:50000-50100"
+  environment:
+   - SFTPGO_FTPD__BINDINGS__0__PORT=2121
+  restart: always
+
+volumes:
+ sftpgo-data:
+  external: false
+ sftpgo-home:
+  external: false
+

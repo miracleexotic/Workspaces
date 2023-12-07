@@ -1,0 +1,70 @@
+# Composer: Comments
+
+FROM ubuntu:16.04
+
+# Change apt source
+RUN sed -i 's/\/us.archive/\/th.archive/g' /etc/apt/sources.list && \
+ sed -i 's/\/archive/\/th.archive/g' /etc/apt/sources.list
+
+# Update ubuntu, then install packages
+RUN apt-get update && \
+echo 'slapd slapd/root_password password 123456' | debconf-set-selections && \
+echo 'slapd slapd/root_password_again password 123456' | debconf-set-selections && \
+echo "slapd slapd/internal/adminpw password 123456" |debconf-set-selections && \
+echo "slapd slapd/internal/generated_adminpw password 123456" |debconf-set-selections && \
+echo "slapd slapd/password2 password 123456" |debconf-set-selections && \
+echo "slapd slapd/password1 password 123456" |debconf-set-selections && \
+echo "slapd slapd/domain string eip.local" |debconf-set-selections && \
+echo "slapd shared/organization string eip" |debconf-set-selections && \
+echo "slapd slapd/backend string HDB" |debconf-set-selections && \
+echo "slapd slapd/purge_database boolean true" |debconf-set-selections && \
+echo "slapd slapd/move_old_database boolean true" |debconf-set-selections && \
+echo "slapd slapd/allow_ldap_v2 boolean false" |debconf-set-selections && \
+echo "slapd slapd/no_configuration boolean false" |debconf-set-selections && \
+DEBIAN_FRONTEND=noninteractive apt install -y slapd
+
+# LDAP utils, self-signed certificates
+RUN apt-get install -y ldap-utils ssl-cert
+
+# Timezone Asia/Bangkok
+RUN apt-get install -y tzdata && \
+ ln -sf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime && \
+ dpkg-reconfigure -f noninteractive tzdata
+
+# Cleaning
+RUN apt-get autoremove -y && apt-get clean -y
+
+# LDAP
+COPY ./src/*.ldif /tmp/
+## Schema only, no user. 
+## RUN service slapd start && \
+## ldapadd -H ldapi:/// -f /tmp/create-schema.ldif -x -D "cn=admin,dc=eip,dc=local" -w 123456
+## Schema and add users.
+RUN service slapd start && \ 
+ ldapadd -H ldapi:/// -f /tmp/create-schema.ldif -x -D "cn=admin,dc=eip,dc=local" -w 123456 && \
+ ldapadd -H ldapi:/// -f /tmp/create-users.ldif -x -D "cn=admin,dc=eip,dc=local" -w 123456 && \
+ ldapadd -H ldapi:/// -f /tmp/create-students.ldif -x -D "cn=admin,dc=eip,dc=local" -w 123456
+
+EXPOSE 389 
+#CMD slapd -h 'ldap:///' -g openldap -u openldap -d 0
+
+#
+# LDAPS
+COPY ./cert/ldap-ca-cert.pem /etc/ssl/certs/
+COPY ./cert/ldap-ca-key.pem /etc/ssl/private/
+
+RUN chgrp ssl-cert /etc/ssl/private/ldap-ca-key.pem && \
+ chmod g+r /etc/ssl/private/ldap-ca-key.pem && \
+ adduser openldap ssl-cert
+
+RUN echo 'SLAPD_SERVICES="ldap:/// ldapi:/// ldaps:///"' >> /etc/default/slapd && \
+ echo 'TLS_REQCERT never' >> /etc/ldap/ldap.conf
+
+RUN service slapd start && \
+ ldapmodify -Y EXTERNAL -H ldapi:/// -f /tmp/ssl.ldif -v
+
+EXPOSE 636
+##CMD slapd -h 'ldaps:///' -g openldap -u openldap -d 0
+
+CMD RUN ulimit -n 1024
+CMD /usr/sbin/slapd -h 'ldap:/// ldaps:/// ldapi:///' -g openldap -u openldap -d 0

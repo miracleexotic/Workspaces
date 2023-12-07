@@ -1,0 +1,29 @@
+version: '2'
+services:
+ openldap:
+  build: ./openldap
+  container_name: openldap
+  volumes:
+   - ldapdatavol:/var/lib/ldap
+   - ldapconfigvol:/etc/ldap/slapd.d
+  ports:
+   - "389:389"
+   - "636:636"
+  restart: always
+
+ phpldapadmin:
+  build: ./phpldapadmin
+  container_name: phpldapadmin
+  environment:
+   HNAME: "openldap"
+  ports:
+   - "30389:80"
+  depends_on:
+   - openldap
+  restart: always
+
+volumes:
+ ldapdatavol:
+  external: false
+ ldapconfigvol:
+  external: false

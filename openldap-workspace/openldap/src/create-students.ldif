@@ -1,0 +1,21 @@
+# Create 2 students in tree OU=students,OU=groups
+dn: cn=00000001,ou=students,ou=groups,dc=eip,dc=local
+objectClass: inetOrgPerson
+uid: 00000001
+sn: 00000001
+givenName: student01
+cn: 00000001
+displayName: student 01
+userPassword: 123456
+mail: 00000001@eip.local
+
+dn: cn=00000002,ou=students,ou=groups,dc=eip,dc=local
+objectClass: inetOrgPerson
+uid: 00000002
+sn: 00000002
+givenName: student02
+cn: 00000002
+displayName: student 02
+userPassword: 123456
+mail: 00000002@eip.local
+

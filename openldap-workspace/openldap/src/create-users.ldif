@@ -1,0 +1,72 @@
+# Create 1 user in tree OU=execs,OU=groups
+dn: cn=execsadmin,ou=execs,ou=groups,dc=eip,dc=local
+objectClass: inetOrgPerson
+uid: execsadmin
+sn: Execsadmin
+givenName: Execsadmin
+cn: admin
+displayName: Execs Admin
+userPassword: 123456
+mail: execs.admin@eip.local
+
+# Create 2 users in tree OU=staffs,OU=groups
+dn: cn=jojo,ou=staffs,ou=groups,dc=eip,dc=local
+objectClass: inetOrgPerson
+uid: jojo
+sn: Jo
+givenName: Jo
+cn: Admin
+displayName: Jo Jo
+userPassword: 123456
+mail: jojo@eip.local
+
+dn: cn=ldapadmin,ou=staffs,ou=groups,dc=eip,dc=local
+objectClass: inetOrgPerson
+uid: ldapadmin
+sn: ldapadmin
+givenName: ldapadmin
+cn: admin
+displayName: Ldap Admin
+userPassword: admin
+mail: ldap.admin@eip.local
+
+dn: cn=koko,ou=staffs,ou=groups,dc=eip,dc=local
+objectClass: inetOrgPerson
+uid: koko
+sn: Ko
+givenName: Ko
+cn: Network Engineer
+displayName: Ko Ko
+userPassword: 123456
+mail: koko@eip.local
+
+dn: cn=momo,ou=staffs,ou=groups,dc=eip,dc=local
+objectClass: inetOrgPerson
+uid: momo
+sn: Mo
+givenName: Mo
+cn: Network Engineer
+displayName: Mo Mo
+userPassword: 123456
+mail: momo@eip.local
+
+# Create 2 users in tree OU=people
+dn: cn=lala,ou=people,dc=eip,dc=local
+objectClass: inetOrgPerson
+uid: lala
+sn: La
+givenName: La
+cn: lala
+displayName: La La
+userPassword: 123456
+mail: lala@eip.local
+
+dn: cn=lulu,ou=people,dc=eip,dc=local
+objectClass: inetOrgPerson
+uid: lulu
+sn: Lu
+givenName: Lu
+cn: lulu
+displayName: Lu Lu
+userPassword: 123456
+mail: lulu@eip.local

@@ -1,0 +1,32 @@
+# Composer: Wiboon Warasittichai
+
+FROM ubuntu:16.04
+
+# Change apt source
+RUN sed -i 's/\/us.archive/\/th.archive/g' /etc/apt/sources.list && \
+ sed -i 's/\/archive/\/th.archive/g' /etc/apt/sources.list
+
+# Update ubuntu, then install packages
+RUN apt-get update && \
+DEBIAN_FRONTEND=noninteractive apt install -y php-ldap phpldapadmin ldap-utils
+
+# Timezone Asia/Bangkok
+RUN apt-get install -y tzdata && \
+ ln -sf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime && \
+ dpkg-reconfigure -f noninteractive tzdata
+
+# Cleaning
+RUN apt-get autoremove -y && apt-get clean -y
+
+EXPOSE 80
+
+CMD RUN ulimit -n 1024
+
+ENV HNAME ${HNAME}
+ADD ./src/startup.sh /startup.sh
+
+COPY ./src/apache2-foreground /usr/local/bin/
+RUN chmod +x /usr/local/bin/apache2-foreground
+
+ENTRYPOINT ["/bin/bash","/startup.sh"]
+

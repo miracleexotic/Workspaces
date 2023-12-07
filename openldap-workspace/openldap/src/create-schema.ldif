@@ -1,0 +1,25 @@
+# Starter kit for create user in domain dc=eip,dc=local
+# Create 1st tree OU=groups
+dn: ou=groups,dc=eip,dc=local
+objectClass: organizationalUnit
+ou: groups
+
+# Create sub tree OU=execs,OU=groups
+dn: ou=execs,ou=groups,dc=eip,dc=local
+objectClass: organizationalUnit
+ou: execs
+
+# Create sub tree OU=staffs,OU=groups
+dn: ou=staffs,ou=groups,dc=eip,dc=local
+objectClass: organizationalUnit
+ou: staffs
+
+# Create sub tree OU=students,OU=groups
+dn: ou=students,ou=groups,dc=eip,dc=local
+objectClass: organizationalUnit
+ou: students
+
+# Create 2nd tree OU=people
+dn: ou=people,dc=eip,dc=local
+objectClass: organizationalUnit
+ou: people
