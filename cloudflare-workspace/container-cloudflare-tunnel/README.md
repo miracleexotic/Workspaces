@@ -19,17 +19,17 @@ $ nano config/hosts
 Mark the `.env` and `hosts` file so they will not be tracked by git:
 
 ```sh
-git update-index --assume-unchanged .env
-git update-index --assume-unchanged config/hosts
+$ git update-index --assume-unchanged .env
+$ git update-index --assume-unchanged config/hosts
 ```
 ___
 ## Usage
 ### Start container
 ```sh
-docker compose up -d
+$ docker compose up -d
 ````
 
 ### Stop container
 ```sh
-docker compose down
+$ docker compose down
 ```
