@@ -28,6 +28,7 @@ ___
 ```sh
 $ docker compose up -d
 ````
+**Note:** For QUIC, It is recommended to increase the maximum buffer size by running `setup.sh`
 
 ### Stop container
 ```sh
