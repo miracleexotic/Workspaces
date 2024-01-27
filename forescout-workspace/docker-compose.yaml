@@ -1,0 +1,11 @@
+services:
+  frontend:
+    container_name: forescout-frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    restart: always
+    env_file:
+      - frontend/.env
+    ports:
+      - "6082:3000"
