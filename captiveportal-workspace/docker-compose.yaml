@@ -1,0 +1,29 @@
+services:
+  backend:
+    container_name: captiveportal-backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    restart: always
+    env_file:
+      - backend/.env
+    ports:
+      - "30201:8000"
+    networks:
+      - dev_network
+
+  frontend:
+    container_name: captiveportal-frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    restart: always
+    env_file:
+      - frontend/.env
+    ports:
+      - "30202:3000"
+    networks:
+      - dev_network
+
+networks:
+  dev_network:
