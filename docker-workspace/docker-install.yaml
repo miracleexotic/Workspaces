@@ -10,9 +10,9 @@
 - name: "| Docker | Install require library - Cert and Libs."
   apt:
     pkg:
-      - apt-transport-https 
-      - ca-certificates 
-      - curl 
+      - apt-transport-https
+      - ca-certificates
+      - curl
       - software-properties-common
     update_cache: yes
   register: result
@@ -20,8 +20,10 @@
   debug:
     var: result
 
-- name: "| Docker | Add GPG key."
-  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+# Add Docker's official GPG key:
+- name: "| Docker | Install /etc/apt/keyrings"
+  become_user: { { user } }
+  shell: install -m 0755 -d /etc/apt/keyrings
   args:
     executable: "{{ zsh.stdout }}"
   register: result
@@ -29,8 +31,32 @@
   debug:
     var: result
 
+- name: "| Docker | Add GPG key."
+  become_user: { { user } }
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+- name: "| Docker | Upgrade permission."
+  become_user: { { user } }
+  shell: chmod a+r /etc/apt/keyrings/docker.asc
+  args:
+    executable: "{{ zsh.stdout }}"
+  register: result
+- name: Print out
+  debug:
+    var: result
+
+# Add the repository to Apt sources:
 - name: "| Docker | Add the Docker repository to APT sources"
-  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+  shell: echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   args:
     executable: "{{ zsh.stdout }}"
   register: result
@@ -47,10 +73,15 @@
   debug:
     var: result
 
+# Install the Docker packages.
 - name: "| Docker | Finally, install Docker."
   apt:
     pkg:
       - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
     update_cache: yes
   register: result
 - name: Print out
@@ -84,7 +115,7 @@
   register: result
 - name: Print out
   debug:
-    var: result    
+    var: result
 
 - name: "| Docker | Check user group."
   become_user: "{{ user }}"
@@ -94,7 +125,7 @@
   register: result
 - name: Print out
   debug:
-    var: result   
+    var: result
 
 - name: "| Docker | Verify Docker."
   shell: docker info
@@ -103,8 +134,4 @@
   register: result
 - name: Print out
   debug:
-    var: result   
-
-
-
-
+    var: result
