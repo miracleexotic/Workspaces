@@ -9,7 +9,7 @@ $ sudo apt-add-repository ppa:ansible/ansible && sudo apt update && sudo apt ins
 Git clone Ubuntu22.04 branch
 
 ```sh
-$ git clone -b Ubuntu22.04 --single-branch https://github.com/miracleexotic/Workspaces.git
+$ git clone -b develop --single-branch https://github.com/miracleexotic/Workspaces.git
 ```
 
 Install Docker, Docker-compose
