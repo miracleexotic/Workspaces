@@ -15,16 +15,16 @@
     var: uname_m
 
 - name: "| Docker-compose | Download"
-  become_user: "{{ user }}"
-  shell: sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ uname_s.stdout }}-{{ uname_m.stdout }}" -o /usr/local/bin/docker-compose
+  become_user: "root"
+  shell: curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ uname_s.stdout }}-{{ uname_m.stdout }}" -o /usr/local/bin/docker-compose
   register: result
 - name: Print out
   debug:
     var: result
 
 - name: "| Docker-compose | Set permissions"
-  become_user: "{{ user }}"
-  shell: sudo chmod +x /usr/local/bin/docker-compose
+  become_user: "root"
+  shell: chmod +x /usr/local/bin/docker-compose
   register: result
 - name: Print out
   debug:

@@ -13,7 +13,7 @@
 
 # Add Docker's official GPG key:
 - name: "| Docker | Install /etc/apt/keyrings"
-  become_user: "{{ user }}"
+  become_user: "root"
   shell: install -m 0755 -d /etc/apt/keyrings
   register: result
 - name: Print out
@@ -21,7 +21,7 @@
     var: result
 
 - name: "| Docker | Add GPG key."
-  become_user: "{{ user }}"
+  become_user: "root"
   shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
   register: result
 - name: Print out
@@ -29,7 +29,7 @@
     var: result
 
 - name: "| Docker | Upgrade permission."
-  become_user: "{{ user }}"
+  become_user: "root"
   shell: chmod a+r /etc/apt/keyrings/docker.asc
   register: result
 - name: Print out
