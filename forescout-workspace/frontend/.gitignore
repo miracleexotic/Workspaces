@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/Certs/key.pem
+/Certs/cert.pem
+
