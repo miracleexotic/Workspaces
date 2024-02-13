@@ -17,6 +17,7 @@ Install Docker, Docker-compose
 ```sh
 $ cd ~/Workspaces/forescout-workspace
 $ sudo ansible-playbook install.yaml
+$ sudo su - $USER
 ```
 
 ## Configuration
@@ -25,12 +26,12 @@ Generate Self-Certification
 
 ```sh
 $ cd ~/Workspaces/forescout-workspace/frontend/Certs
-$ ./gen.sh
+$ sudo sh ./gen.sh
 ```
 
 Run Docker-compose
 
 ```sh
 $ cd ~/Workspaces/forescout-workspace
-$ docker-compose -f docker-compose.yml up -d --build
+$ docker-compose -f docker-compose.yaml up -d --build
 ```
