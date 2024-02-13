@@ -15,7 +15,7 @@ $ git clone -b Ubuntu22.04 --single-branch https://github.com/miracleexotic/Work
 Install Docker, Docker-compose
 
 ```sh
-$ cd ~/Workspaces
+$ cd ~/Workspaces/forescout-workspace
 $ sudo ansible-playbook install.yaml
 ```
 
