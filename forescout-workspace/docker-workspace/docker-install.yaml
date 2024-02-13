@@ -47,13 +47,6 @@
   debug:
     var: result
 
-- name: "| Docker | Make sure you are about to install from the Docker repo instead of the default Ubuntu repo."
-  shell: apt-cache policy docker-ce
-  register: result
-- name: Print out
-  debug:
-    var: result
-
 # Install the Docker packages.
 - name: "| Docker | Finally, install Docker."
   apt:
