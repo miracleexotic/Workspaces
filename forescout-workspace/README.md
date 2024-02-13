@@ -15,7 +15,8 @@ $ git clone -b Ubuntu22.04 --single-branch https://github.com/miracleexotic/Work
 Install Docker, Docker-compose
 
 ```sh
-$ cd ~/Workspaces && sudo ansible-playbook -f install.yaml
+$ cd ~/Workspaces
+$ sudo ansible-playbook -f install.yaml
 ```
 
 ## Configuration
@@ -23,7 +24,8 @@ $ cd ~/Workspaces && sudo ansible-playbook -f install.yaml
 Generate Self-Certification
 
 ```sh
-$ cd ~/Workspaces/forescout-workspace/frontend/Certs && ./gen.sh
+$ cd ~/Workspaces/forescout-workspace/frontend/Certs
+$ ./gen.sh
 ```
 
 Run Docker-compose
