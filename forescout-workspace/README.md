@@ -16,7 +16,7 @@ Install Docker, Docker-compose
 
 ```sh
 $ cd ~/Workspaces
-$ sudo ansible-playbook -f install.yaml
+$ sudo ansible-playbook install.yaml
 ```
 
 ## Configuration
