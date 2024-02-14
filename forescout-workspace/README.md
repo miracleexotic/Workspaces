@@ -26,7 +26,7 @@ Generate Self-Certification
 
 ```sh
 $ cd ~/Workspaces/forescout-workspace/frontend/Certs
-$ sudo sh ./gen.sh
+$ ./gen.sh
 ```
 
 Run Docker-compose
