@@ -24,4 +24,6 @@ yarn-error.log*
 
 /Certs/key.pem
 /Certs/cert.pem
+/Certs/cert.key
+/Certs/cert.crt
 
