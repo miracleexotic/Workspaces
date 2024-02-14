@@ -8,4 +8,5 @@ services:
     env_file:
       - frontend/.env
     ports:
-      - "6082:3000"
+      - "80:80"
+      - "6082:443"
