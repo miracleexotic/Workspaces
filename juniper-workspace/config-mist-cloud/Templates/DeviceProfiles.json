@@ -1,0 +1,106 @@
+[
+  {
+    "poe_passthrough": true,
+    "disable_eth1": false,
+    "disable_eth2": false,
+    "disable_eth3": false,
+    "disable_module": false,
+    "radio_config": {},
+    "mesh": {
+      "enabled": false,
+      "role": "base",
+      "group": null
+    },
+    "ip_config": {
+      "type": "dhcp",
+      "mtu": 0
+    },
+    "ble_config": {
+      "power_mode": "default",
+      "beacon_enabled": true
+    },
+    "switch_config": {
+      "enabled": false,
+      "eth0": {},
+      "eth1": {},
+      "eth2": {},
+      "eth3": {},
+      "module": {},
+      "wds": {}
+    },
+    "esl_config": {
+      "enabled": false,
+      "type": "imagotag",
+      "host": "",
+      "channel": null,
+      "vlan_id": 1
+    },
+    "aeroscout": {
+      "enabled": false,
+      "locate_connected": false,
+      "host": "",
+      "port": 1144
+    },
+    "uplink_port_config": {
+      "dot1x": false
+    },
+    "centrak": {
+      "enabled": false
+    },
+    "vars": {},
+    "name": "EXTERNAL",
+    "type": "ap"
+  },
+  {
+    "poe_passthrough": true,
+    "disable_eth1": false,
+    "disable_eth2": false,
+    "disable_eth3": false,
+    "disable_module": false,
+    "radio_config": {},
+    "mesh": {
+      "enabled": false,
+      "role": "base",
+      "group": null
+    },
+    "ip_config": {
+      "type": "dhcp",
+      "mtu": 0
+    },
+    "ble_config": {
+      "power_mode": "default",
+      "beacon_enabled": true
+    },
+    "switch_config": {
+      "enabled": false,
+      "eth0": {},
+      "eth1": {},
+      "eth2": {},
+      "eth3": {},
+      "module": {},
+      "wds": {}
+    },
+    "esl_config": {
+      "enabled": false,
+      "type": "imagotag",
+      "host": "",
+      "channel": null,
+      "vlan_id": 1
+    },
+    "aeroscout": {
+      "enabled": false,
+      "locate_connected": false,
+      "host": "",
+      "port": 1144
+    },
+    "uplink_port_config": {
+      "dot1x": false
+    },
+    "centrak": {
+      "enabled": false
+    },
+    "vars": {},
+    "name": "INTERNAL",
+    "type": "ap"
+  }
+]

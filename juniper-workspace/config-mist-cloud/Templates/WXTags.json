@@ -1,0 +1,46 @@
+[
+  {
+    "op": "in",
+    "values": ["8.8.8.8", "8.8.4.4", "1.1.1.1"],
+    "name": "DNS",
+    "for_site": false,
+    "site_id": "00000000-0000-0000-0000-000000000000",
+    "type": "match",
+    "match": "ip_range_subnet",
+    "resource_mac": null,
+    "mac": null
+  },
+  {
+    "op": "in",
+    "values": ["10.1.2.0/24"],
+    "name": "Internal",
+    "for_site": false,
+    "site_id": "00000000-0000-0000-0000-000000000000",
+    "type": "match",
+    "match": "ip_range_subnet",
+    "resource_mac": null,
+    "mac": null
+  },
+  {
+    "op": "not_in",
+    "values": ["facebook"],
+    "name": "Facebook",
+    "for_site": false,
+    "site_id": "00000000-0000-0000-0000-000000000000",
+    "type": "match",
+    "match": "app",
+    "resource_mac": null,
+    "mac": null
+  },
+  {
+    "op": "in",
+    "values": ["Engineer"],
+    "name": "Engineer",
+    "for_site": false,
+    "site_id": "00000000-0000-0000-0000-000000000000",
+    "type": "match",
+    "match": "radius_group",
+    "resource_mac": null,
+    "mac": null
+  }
+]

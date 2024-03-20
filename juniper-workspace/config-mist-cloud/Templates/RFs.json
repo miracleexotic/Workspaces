@@ -1,0 +1,86 @@
+[
+  {
+    "band_24_usage": "auto",
+    "country_code": "TH",
+    "band_5": {
+      "ant_gain": 0,
+      "disabled": false,
+      "allow_rrm_disable": false,
+      "power_min": 8,
+      "power_max": 17,
+      "power": null,
+      "preamble": "short",
+      "channels": null,
+      "bandwidth": 40
+    },
+    "band_6": {
+      "ant_gain": 0,
+      "disabled": false,
+      "allow_rrm_disable": false,
+      "power_min": 8,
+      "power_max": 17,
+      "power": null,
+      "preamble": "short",
+      "channels": null,
+      "bandwidth": 80
+    },
+    "band_24": {
+      "ant_gain": 0,
+      "disabled": false,
+      "allow_rrm_disable": false,
+      "power_min": 3,
+      "power_max": 11,
+      "power": null,
+      "preamble": "short",
+      "channels": [1, 6, 11],
+      "bandwidth": 20
+    },
+    "ant_gain_5": 0,
+    "ant_gain_6": 0,
+    "ant_gain_24": 0,
+    "model_specific": {},
+    "name": "WESTCON | RF - Single"
+  },
+  {
+    "band_24_usage": "auto",
+    "country_code": "TH",
+    "band_5": {
+      "ant_gain": 0,
+      "disabled": false,
+      "allow_rrm_disable": false,
+      "power_min": 8,
+      "power_max": 17,
+      "power": null,
+      "preamble": "short",
+      "channels": null,
+      "bandwidth": 40
+    },
+    "band_6": {
+      "ant_gain": 0,
+      "disabled": false,
+      "allow_rrm_disable": false,
+      "power_min": 8,
+      "power_max": 17,
+      "power": null,
+      "preamble": "short",
+      "channels": null,
+      "bandwidth": 80
+    },
+    "band_24": {
+      "ant_gain": 0,
+      "disabled": false,
+      "allow_rrm_disable": false,
+      "power_min": 3,
+      "power_max": 18,
+      "power": null,
+      "preamble": "short",
+      "channels": [1, 6, 11],
+      "bandwidth": 20
+    },
+    "ant_gain_5": 0,
+    "ant_gain_6": 0,
+    "ant_gain_24": 0,
+    "model_specific": {},
+    "name": "WESTCON | RF - Separate"
+  }
+]

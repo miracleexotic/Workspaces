@@ -1,0 +1,20 @@
+[
+  {
+    "timezone": "Asia/Bangkok",
+    "country_code": "TH",
+    "latlng": {
+      "lat": 13.800384,
+      "lng": 100.575185
+    },
+    "address": "Olympia Thai Tower, 444, ชั้น 10, ถ. รัชดาภิเษก แขวงสามเสนนอก เขตห้วยขวาง กรุงเทพมหานคร 10310, Thailand",
+    "name": "WESTCON | Site",
+    "rftemplate_id": null,
+    "aptemplate_id": null,
+    "secpolicy_id": null,
+    "alarmtemplate_id": null,
+    "networktemplate_id": null,
+    "gatewaytemplate_id": null,
+    "sitetemplate_id": null,
+    "tzoffset": 420
+  }
+]
