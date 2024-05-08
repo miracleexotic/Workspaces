@@ -1,4 +1,14 @@
-import rf, wlan, wxtag, deviceProfile, switch, siteGroup, site, ssoRole, ssoProfile
+from packages import (
+    rf,
+    wlan,
+    wxtag,
+    deviceProfile,
+    switch,
+    siteGroup,
+    site,
+    ssoRole,
+    ssoProfile,
+)
 
 
 if __name__ == "__main__":
