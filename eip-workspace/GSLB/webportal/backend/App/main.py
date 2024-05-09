@@ -7,6 +7,8 @@ from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 
+import ssl
+
 
 class ServiceStatus(BaseModel):
     state: bool
@@ -15,6 +17,9 @@ class ServiceStatus(BaseModel):
 isService = True
 
 app = FastAPI()
+
+# ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+# ssl_context.load_cert_chain(certfile="../Certs/cert.crt", keyfile="../Certs/cert.key")
 
 app.add_middleware(
     CORSMiddleware,
