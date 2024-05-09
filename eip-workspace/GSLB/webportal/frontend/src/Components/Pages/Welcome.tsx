@@ -52,7 +52,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function WelcomePage() {
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
