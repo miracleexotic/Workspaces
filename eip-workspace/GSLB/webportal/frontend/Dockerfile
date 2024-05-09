@@ -1,12 +1,19 @@
 # syntax=docker/dockerfile:1
 
-FROM node:16.14.0-alpine3.15
+FROM node:16.14.0-alpine3.15 as build
 
 WORKDIR /frontend
 
 COPY ./package*.json ./
-RUN npm install
+RUN yarn install
 
 COPY . .
-EXPOSE 3000
-CMD [ "npm", "start" ]
+RUN yarn build
+
+FROM nginx
+
+COPY ./Certs/cert.key /etc/nginx/ssl/nginx-selfsigned.key
+COPY ./Certs/cert.crt /etc/nginx/ssl/nginx-selfsigned.crt
+
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /frontend/build /usr/share/nginx/html
