@@ -5,7 +5,8 @@ import ForescoutRedirectPage from "./Pages/ForescoutRedirect";
 function AppRouter() {
   const router = createBrowserRouter([
     {
-      path: "/php/uid.php",
+      // path: "/php/uid.php",
+      path: "/",
       element: <ForescoutRedirectPage />,
     },
   ]);
