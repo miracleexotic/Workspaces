@@ -1,3 +1,11 @@
+- name: "| Docker | Uninstall all conflicting packages."
+  become_user: "root"
+  shell: for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+  register: result
+- name: Print out
+  debug:
+    var: result
+
 - name: "| Docker | Install require library - Cert and Libs."
   apt:
     pkg:

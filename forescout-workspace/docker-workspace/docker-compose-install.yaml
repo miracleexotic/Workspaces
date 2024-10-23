@@ -1,3 +1,13 @@
+- name: "| Docker | Install via apt - docker-compose-plugin."
+  apt:
+    pkg:
+      - docker-compose-plugin
+    update_cache: yes
+  register: result
+- name: Print out
+  debug:
+    var: result
+
 - name: "| Docker-compose | uname -s"
   become_user: "{{ user }}"
   shell: uname -s
