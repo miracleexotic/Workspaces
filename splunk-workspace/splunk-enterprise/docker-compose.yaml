@@ -6,7 +6,13 @@ services:
     environment:
       - "SPLUNK_START_ARGS=--accept-license"
       - "SPLUNK_PASSWORD=P@ssw0rd"
+    volumes:
+      - splunk-data:/opt/splunk
     ports:
-      - "8000:8000"
-      - "8088:8088"
-      - "8089:8089"
+      - "30800:8000"
+      - "30888:8088"
+      - "30889:8089"
+      - "30997:9997"
+      - "514:514/udp"
+volumes:
+  splunk-data:
