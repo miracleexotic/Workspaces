@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:16.14.0-alpine3.15 as build
+FROM node:18.14.0-alpine3.17 as build
 
 WORKDIR /frontend
 
@@ -10,10 +10,24 @@ RUN yarn install
 COPY . .
 RUN yarn build
 
-FROM nginx
+FROM nginx:1.25.3
+
+RUN apt update
+RUN apt install -y wget tar
+
+RUN wget https://github.com/open-telemetry/opentelemetry-cpp-contrib/releases/download/webserver%2Fv1.0.4/opentelemetry-webserver-sdk-x64-linux.tgz
+RUN gzip -d /opentelemetry-webserver-sdk-x64-linux.tgz
+RUN tar -xf /opentelemetry-webserver-sdk-x64-linux.tar
+RUN mv /opentelemetry-webserver-sdk/ /opt/.
+RUN ./opt/opentelemetry-webserver-sdk/install.sh
+
+COPY ./otel/opentelemetry_module.conf /opt/opentelemetry_module.conf
+RUN echo "export LD_LIBRARY_PATH=/opt/opentelemetry-webserver-sdk/sdk_lib/lib" >> /etc/environment
+ENV LD_LIBRARY_PATH=/opt/opentelemetry-webserver-sdk/sdk_lib/lib
 
 COPY ./Certs/cert.key /etc/nginx/ssl/nginx-selfsigned.key
 COPY ./Certs/cert.crt /etc/nginx/ssl/nginx-selfsigned.crt
 
-COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /frontend/build /usr/share/nginx/html
