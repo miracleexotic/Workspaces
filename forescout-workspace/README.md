@@ -13,12 +13,7 @@ $ git clone -b develop --single-branch https://github.com/miracleexotic/Workspac
 ```
 
 Install Docker, Docker-compose
-
-```sh
-$ cd ~/Workspaces/forescout-workspace
-$ sudo ansible-playbook install.yaml
-$ sudo su - $USER
-```
+[Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 
 ## Configuration
 
