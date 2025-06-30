@@ -1,0 +1,32 @@
+deschedulerPolicy:
+  profiles:
+    - name: cloudflare
+      pluginConfig:
+        - name: "RemovePodsViolatingNodeAffinity"
+          args:
+            nodeAffinityType:
+              - "preferredDuringSchedulingIgnoredDuringExecution"
+            namespaces:
+              include:
+                - "cloudflare-tunnel"
+        - name: "RemovePodsViolatingInterPodAntiAffinity"
+          args:
+            namespaces:
+              include:
+                - "cloudflare-tunnel"
+        - name: "RemoveDuplicates"
+          args:
+            #excludeOwnerKinds:
+            #  - "ReplicaSet"
+            namespaces:
+              include:
+                - "cloudflare-tunnel"
+
+      plugins:
+        deschedule:
+          enabled:
+            - "RemovePodsViolatingNodeAffinity"
+            - "RemovePodsViolatingInterPodAntiAffinity"
+        balance:
+          enabled:
+            - "RemoveDuplicates"
