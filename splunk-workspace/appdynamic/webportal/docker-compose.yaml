@@ -1,4 +1,17 @@
 services:
+  database:
+    container_name: webportal-database
+    build:
+      context: database
+      dockerfile: ./Dockerfile
+    restart: always
+    env_file:
+      - database/.env
+    ports:
+      - 30202:8000
+    networks:
+      - dev_network
+
   backend:
     container_name: webportal-backend
     build:
@@ -45,7 +58,7 @@ services:
     environment:
       - COLLECTOR_OTLP_ENABLED=true
     ports:
-      - '16686:16686'
+      - "16686:16686"
     networks:
       - dev_network
 
