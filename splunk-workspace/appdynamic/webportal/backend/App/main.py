@@ -1,25 +1,18 @@
-from fastapi import (
-    FastAPI,
-    status,
-)
+from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel
+from App.schemas.system import ServiceStatus
+import httpx
+from dotenv import dotenv_values
 
-import ssl
+config = dotenv_values("App/.env")
 
-
-class ServiceStatus(BaseModel):
-    state: bool
-
-
-isService = True
 
 app = FastAPI()
 
-# ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-# ssl_context.load_cert_chain(certfile="../Certs/cert.crt", keyfile="../Certs/cert.key")
+isService = True
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -60,3 +53,25 @@ async def toggle_service(serviceStatus: ServiceStatus):
     isService = serviceStatus.state
 
     return serviceStatus
+
+
+@app.get("/database")
+async def database():
+    print(config["BACKEND_DB_URL"])
+    async with httpx.AsyncClient() as client:
+        url = f"{config['BACKEND_DB_URL']}/healthcheck"
+        resp = await client.get(url)
+
+        data = resp.json()
+
+        return JSONResponse(
+            status_code=resp.status_code,
+            content=jsonable_encoder(
+                {
+                    "data": {
+                        "status": data["data"]["status"],
+                        "state": data["data"]["state"],
+                    }
+                }
+            ),
+        )
