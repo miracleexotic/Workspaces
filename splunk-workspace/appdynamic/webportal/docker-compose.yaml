@@ -6,7 +6,7 @@ services:
       dockerfile: ./Dockerfile
     restart: always
     env_file:
-      - database/.env
+      - database/app/.env
     ports:
       - 30202:8000
     networks:
@@ -19,7 +19,7 @@ services:
       dockerfile: ./Dockerfile
     restart: always
     env_file:
-      - backend/.env
+      - backend/App/.env
     ports:
       - "30201:8000"
     networks:
