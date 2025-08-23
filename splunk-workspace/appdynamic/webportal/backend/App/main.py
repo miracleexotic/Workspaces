@@ -58,7 +58,7 @@ async def toggle_service(serviceStatus: ServiceStatus):
 @app.get("/database")
 async def database():
     print(config["BACKEND_DB_URL"])
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(verify=False) as client:
         url = f"{config['BACKEND_DB_URL']}/healthcheck"
         resp = await client.get(url)
 
