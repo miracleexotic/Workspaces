@@ -5,7 +5,6 @@ FROM node:18.14.0-alpine3.17 as build
 WORKDIR /frontend
 
 COPY ./package*.json ./
-RUN timedatectl set-timezone Asia/Bangkok
 RUN yarn install
 
 COPY . .
