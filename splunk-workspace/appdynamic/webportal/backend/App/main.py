@@ -57,7 +57,6 @@ async def toggle_service(serviceStatus: ServiceStatus):
 
 @app.get("/database")
 async def database():
-    print(config["BACKEND_DB_URL"])
     async with httpx.AsyncClient(verify=False) as client:
         url = f"{config['BACKEND_DB_URL']}/healthcheck"
         resp = await client.get(url)
@@ -74,4 +73,21 @@ async def database():
                     }
                 }
             ),
+        )
+
+
+@app.get("/external")
+async def database(url: str):
+    if not url.startswith("http"):
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content=jsonable_encoder({"error": "URL Invalid"}),
+        )
+
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(url)
+
+        return JSONResponse(
+            status_code=resp.status_code,
+            content=jsonable_encoder({"url": url}),
         )
