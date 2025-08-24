@@ -5,8 +5,11 @@ from fastapi.encoders import jsonable_encoder
 from App.schemas.system import ServiceStatus
 import httpx
 from dotenv import dotenv_values
+from appdynamics.agent import api as appd
 
 config = dotenv_values("App/.env")
+env_dict = {"APPD_NODE_NAME": "Backend"}
+appd.init(environ=env_dict, timeout_ms=appd.api.NO_TIMEOUT)
 
 
 app = FastAPI()
@@ -78,7 +81,9 @@ async def database():
 
 @app.get("/external")
 async def database(url: str):
+    mybt = appd.start_bt("/external")
     if not url.startswith("http"):
+        appd.end_bt(mybt)
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
             content=jsonable_encoder({"error": "URL Invalid"}),
@@ -86,6 +91,7 @@ async def database(url: str):
 
     async with httpx.AsyncClient() as client:
         resp = await client.get(url)
+        appd.end_bt(mybt)
 
         return JSONResponse(
             status_code=resp.status_code,
