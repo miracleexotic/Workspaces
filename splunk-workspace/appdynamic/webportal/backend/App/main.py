@@ -61,23 +61,22 @@ async def toggle_service(serviceStatus: ServiceStatus):
 
 @app.get("/database")
 async def database():
-    async with httpx.AsyncClient(verify=False) as client:
-        url = f"{config['BACKEND_DB_URL']}/healthcheck"
-        resp = await client.get(url)
+    url = f"{config['BACKEND_DB_URL']}/healthcheck"
+    resp = requests.get(url, verify=True)
 
-        data = resp.json()
+    data = resp.json()
 
-        return JSONResponse(
-            status_code=resp.status_code,
-            content=jsonable_encoder(
-                {
-                    "data": {
-                        "status": data["data"]["status"],
-                        "state": data["data"]["state"],
-                    }
+    return JSONResponse(
+        status_code=resp.status_code,
+        content=jsonable_encoder(
+            {
+                "data": {
+                    "status": data["data"]["status"],
+                    "state": data["data"]["state"],
                 }
-            ),
-        )
+            }
+        ),
+    )
 
 
 @app.get("/external")
