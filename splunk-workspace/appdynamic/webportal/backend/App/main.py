@@ -4,6 +4,7 @@ from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from App.schemas.system import ServiceStatus
 import httpx
+import requests
 from dotenv import dotenv_values
 from appdynamics.agent import api as appd
 
@@ -89,11 +90,10 @@ async def database(url: str):
             content=jsonable_encoder({"error": "URL Invalid"}),
         )
 
-    async with httpx.AsyncClient() as client:
-        resp = await client.get(url)
-        appd.end_bt(mybt)
+    resp = requests.get(url)
+    appd.end_bt(mybt)
 
-        return JSONResponse(
-            status_code=resp.status_code,
-            content=jsonable_encoder({"url": url}),
-        )
+    return JSONResponse(
+        status_code=resp.status_code,
+        content=jsonable_encoder({"url": url}),
+    )
