@@ -62,7 +62,7 @@ async def toggle_service(serviceStatus: ServiceStatus):
 @app.get("/database")
 async def database():
     url = f"{config['BACKEND_DB_URL']}/healthcheck"
-    resp = requests.get(url, verify=True)
+    resp = requests.get(url, verify=False)
 
     data = resp.json()
 
