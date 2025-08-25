@@ -5,6 +5,11 @@ load_dotenv()
 
 
 class Settings(BaseSettings):
+    db_ipaddress: str
+    db_port: int
+    db_database: str
+    db_username: str
+    db_password: str
     db_uri: str
     echo_sql: bool = True
     test: bool = False
