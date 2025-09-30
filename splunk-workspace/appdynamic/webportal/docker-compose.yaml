@@ -33,7 +33,9 @@ services:
     container_name: webportal-frontend
     build:
       context: frontend
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.ubuntu
+    stdin_open: true
+    tty: true
     restart: always
     env_file:
       - frontend/.env

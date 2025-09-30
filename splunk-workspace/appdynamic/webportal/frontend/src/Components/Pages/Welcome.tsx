@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import FormGroup from "@mui/material/FormGroup";
 import Stack from "@mui/material/Stack";
-import Switch, { SwitchProps } from "@mui/material/Switch";
+import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
