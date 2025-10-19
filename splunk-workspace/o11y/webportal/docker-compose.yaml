@@ -12,6 +12,7 @@ services:
       - OTEL_SERVICE_NAME=Database-server
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://splunk-otel-collector:4317
       - OTEL_RESOURCE_ATTRIBUTES=deployment.environment=dev,service.version=Database-service
+      - SPLUNK_PROFILER_ENABLED=true
     ports:
       - 30202:8000
     networks:
@@ -30,6 +31,7 @@ services:
       - OTEL_SERVICE_NAME=Backend-server
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://splunk-otel-collector:4317
       - OTEL_RESOURCE_ATTRIBUTES=deployment.environment=dev,service.version=Backend-service
+      - SPLUNK_PROFILER_ENABLED=true
     ports:
       - "30201:8000"
     networks:
@@ -54,6 +56,8 @@ services:
       - SPLUNK_METRICS_ENABLED=true
       - SPLUNK_DEBUG_METRICS_ENABLED=true
       - SPLUNK_AUTOMATIC_LOG_COLLECTION=true
+      - SPLUNK_PROFILER_ENABLED=true
+      - SPLUNK_PROFILER_MEMORY_ENABLED=true
     ports:
       - "80:80"
       - "443:443"
