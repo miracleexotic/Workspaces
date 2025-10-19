@@ -1,0 +1,61 @@
+# syntax=docker/dockerfile:1
+#
+# Ubuntu Dockerfile
+#
+# https://github.com/dockerfile/ubuntu
+#
+
+# Pull base image.
+FROM ubuntu:22.04
+
+#
+# Initial OS
+#
+
+# Install.
+RUN \
+  sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
+  apt-get update && \
+  apt-get -y upgrade && \
+  apt-get install -y build-essential && \
+  apt-get install -y software-properties-common && \
+  apt-get install -y curl git htop man unzip vim wget iputils-ping net-tools openssh-server sudo 
+
+# Supervisord 
+RUN \
+  apt-get update && \
+  apt-get install -y supervisor
+RUN mkdir -p /var/log/supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+#
+# Frontend - WebPortal
+#
+
+# Install NodeJS 18.14.0
+# + Import the Node.js repository GPG key
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+
+# + Add the Node.js repository to your sources list (replace 'node_20.x' with your desired version)
+ENV NODE_MAJOR 18
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+
+# + Update package lists again and install Node.js and npm
+RUN apt-get update && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
+
+# + Verify the installation
+RUN node -v
+RUN npm -v
+
+WORKDIR /frontend
+
+COPY ./package*.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["/usr/bin/supervisord"]

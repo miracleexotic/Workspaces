@@ -1,0 +1,55 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+exporters:
+  debug:
+    verbosity: detailed
+  otlphttp:
+    endpoint: https://pdx-sls-agent-api.saas.appdynamics.com
+    headers:
+      x-api-key: eb465b3fb294673666b7b1767b4538539d2716aa2225104b70b379c2405752b5
+  otlp/jaeger:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+processors:
+  resource:
+    attributes:
+    - key: appdynamics.controller.account
+      action: upsert
+      value: "painted202506172143385"
+    - key: appdynamics.controller.host
+      action: upsert
+      value: "painted202506172143385.saas.appdynamics.com"
+    - key: appdynamics.controller.port
+      action: upsert
+      value: 443
+    - key: service.namespace
+      action: upsert
+      value: "Webportal"
+    - key: service.name
+      action: upsert
+      value: "Frontend"
+    - key: net.peer.name
+      action: upsert
+      value: "frontend"
+    - key: http.url
+      action: upsert
+      value: "https://localhost/"
+  batch:
+    timeout: 30s
+    send_batch_size: 90
+service:
+  extensions: [health_check]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [resource, batch]
+      exporters: [otlphttp, otlp/jaeger, debug]

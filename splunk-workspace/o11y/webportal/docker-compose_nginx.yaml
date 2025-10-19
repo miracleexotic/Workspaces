@@ -1,0 +1,77 @@
+services:
+  database:
+    container_name: webportal-database
+    build:
+      context: database
+      dockerfile: ./Dockerfile
+    restart: always
+    env_file:
+      - database/app/.env
+    environment:
+      - TZ=Asia/Bangkok
+    ports:
+      - 30202:8000
+    networks:
+      - dev_network
+
+  backend:
+    container_name: webportal-backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    restart: always
+    env_file:
+      - backend/App/.env
+    environment:
+      - TZ=Asia/Bangkok
+    ports:
+      - "30201:8000"
+    networks:
+      - dev_network
+
+  frontend:
+    container_name: webportal-frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile.ubuntu
+    stdin_open: true
+    tty: true
+    restart: always
+    env_file:
+      - frontend/.env
+    environment:
+      - TZ=Asia/Bangkok
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - dev_network
+
+  collector:
+    container_name: webportal-collector
+    image: otel/opentelemetry-collector:latest
+    command: ["--config=/etc/otel/config.yml"]
+    volumes:
+      - ./frontend/otel/collector.yaml:/etc/otel/config.yml
+    environment:
+      - TZ=Asia/Bangkok
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "13133:13133" # health check
+    networks:
+      - dev_network
+
+  jaeger:
+    container_name: webportal-jaeger
+    image: jaegertracing/all-in-one:latest
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - TZ=Asia/Bangkok
+    ports:
+      - "16686:16686"
+    networks:
+      - dev_network
+
+networks:
+  dev_network:
