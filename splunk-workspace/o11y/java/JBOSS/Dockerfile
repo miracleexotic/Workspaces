@@ -54,6 +54,9 @@ RUN \
 COPY ./JBOSSMAIN/wildfly-10.0.0.Final/domain/configuration/mgmt-users.properties /opt/JBOSS/JBOSSMAIN/wildfly-10.0.0.Final/domain/configuration/
 COPY ./JBOSSMAIN/wildfly-10.0.0.Final/domain/configuration/mgmt-groups.properties /opt/JBOSS/JBOSSMAIN/wildfly-10.0.0.Final/domain/configuration/
 
+# Connect Java trace data with logs for Splunk Observability Cloud
+COPY ./JBOSSMAIN/wildfly-10.0.0.Final/domain/configuration/logging.properties /opt/JBOSS/JBOSSMAIN/wildfly-10.0.0.Final/domain/configuration/
+
 # Copy domain configuration file
 RUN \
   cp -rp /opt/JBOSS/JBOSSMAIN/wildfly-10.0.0.Final/domain /opt/JBOSS/JBDOMAIN && \ 

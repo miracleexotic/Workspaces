@@ -77,16 +77,15 @@
                 <option value="-XX:MetaspaceSize=96m"/>
                 <option value="-XX:MaxMetaspaceSize=256m"/>
                 <option value="-javaagent:/opt/o11y/java-agent/splunk-otel-javaagent.jar"/>
-                <option value="-Dsplunk.profiler.enabled=true"/>
-                <option value="-Dsplunk.profiler.memory.enabled=true"/>
                 <option value="-Dotel.service.name=jboss"/>
                 <option value="-Dotel.resource.attributes=deployment.environment=dev,service.version=1.0.0"/>
                 <option value="-Dotel.exporter.otlp.endpoint=http://splunk-otel-collector:4318"/>
                 <option value="-Dotel.exporter.otlp.protocol=http/protobuf"/>
                 <option value="-Dotel.javaagent.debug=true"/>
+                <option value="-Dotel.log.level=debug"/>
+                <option value="-Dotel.instrumentation.common.mdc.resource-attributes=service.name,deployment.environment"/>
                 <option value="-Dsplunk.profiler.enabled=true"/>
                 <option value="-Dsplunk.profiler.memory.enabled=true"/>
-                <option value="-Dotel.log.level=debug"/>
                 <option value="-Dsplunk.metrics.enabled=true"/>
                 <option value="-Dsplunk.debug.metrics.enabled=true"/>
                 <option value="-Dsplunk.automatic.log.collection=true"/>
