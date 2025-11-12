@@ -81,7 +81,11 @@ RUN \
 # Copy domain.conf inject o11y-java-agent
 COPY ./JBOSSMAIN/domain.conf /opt/JBOSS/JBOSSMAIN/wildfly-10.0.0.Final/bin
 
+# Install IM monitor
 WORKDIR /opt
+RUN \
+  curl -sSL https://dl.signalfx.com/splunk-otel-collector.sh > /tmp/splunk-otel-collector.sh && \
+  sh /tmp/splunk-otel-collector.sh --realm $SPLUNK_REALM -- $SPLUNK_ACCESS_TOKEN --mode agent --with-instrumentation --deployment-environment dev --discovery
 
 EXPOSE 9990
 

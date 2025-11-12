@@ -27,6 +27,8 @@ services:
       context: JBOSS
       dockerfile: ./Dockerfile
     restart: always
+    env_file:
+      - splunk-otel-collector-gateway/.env
     environment:
       - TZ=Asia/Bangkok
       - OTEL_SERVICE_NAME='jboss'
