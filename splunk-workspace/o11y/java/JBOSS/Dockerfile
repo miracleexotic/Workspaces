@@ -84,7 +84,7 @@ COPY ./JBOSSMAIN/domain.conf /opt/JBOSS/JBOSSMAIN/wildfly-10.0.0.Final/bin
 # Install IM monitor
 WORKDIR /opt/splunk-otel-collector
 RUN \
-  wget https://github.com/signalfx/splunk-otel-collector/releases/download/v0.139.2/otelcol_linux_amd64 -O otelcol && \
+  wget https://github.com/signalfx/splunk-otel-collector/releases/download/v0.139.2/otelcol_linux_amd64 -O otelcol
 
 COPY ./splunk-otel-collector-agent/agent_config.yaml /opt/splunk-otel-collector
   
