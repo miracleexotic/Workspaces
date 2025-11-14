@@ -33,6 +33,7 @@ services:
       - TZ=Asia/Bangkok
       - SPLUNK_LISTEN_INTERFACE='localhost'
       - SPLUNK_GATEWAY_URL='http://splunk-otel-collector-gateway:4318'
+      - SPLUNK_CONFIG='/opt/splunk-otel-collector/agent_config.yaml'
       - OTEL_SERVICE_NAME='jboss'
       - OTEL_RESOURCE_ATTRIBUTES='deployment.environment=dev,service.version=1.0.0'
       - OTEL_EXPORTER_OTLP_ENDPOINT='http://localhost:4318'
