@@ -32,7 +32,7 @@ services:
     environment:
       - TZ=Asia/Bangkok
       - SPLUNK_LISTEN_INTERFACE=localhost
-      - SPLUNK_GATEWAY_URL=http://splunk-otel-collector-gateway
+      - SPLUNK_GATEWAY_URL=http://splunk-otel-collector
       # (Optional) Use this instand of config file in supervisord.conf
       # - SPLUNK_CONFIG='/opt/splunk-otel-collector/agent_config.yaml'
       - OTEL_SERVICE_NAME='jboss'
