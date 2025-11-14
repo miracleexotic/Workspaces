@@ -82,10 +82,13 @@ RUN \
 COPY ./JBOSSMAIN/domain.conf /opt/JBOSS/JBOSSMAIN/wildfly-10.0.0.Final/bin
 
 # Install IM monitor
-WORKDIR /opt
+WORKDIR /opt/splunk-otel-collector
 RUN \
-  curl -sSL https://dl.signalfx.com/splunk-otel-collector.sh > /tmp/splunk-otel-collector.sh && \
-  sh /tmp/splunk-otel-collector.sh --realm $SPLUNK_REALM -- $SPLUNK_ACCESS_TOKEN --mode agent --with-instrumentation --deployment-environment dev --discovery
+  wget https://github.com/signalfx/splunk-otel-collector/releases/download/v0.139.2/otelcol_linux_amd64 -O otelcol && \
+
+COPY ./splunk-otel-collector-agent/agent_config.yaml /opt/splunk-otel-collector
+  
+WORKDIR /opt
 
 EXPOSE 9990
 
