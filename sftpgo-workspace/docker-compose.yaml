@@ -9,10 +9,11 @@ services:
   ports:
    - "30802:8080"
    - "2022:2022"
-   - "2121:2121"
+   - "21:2121"
    - "50000-50100:50000-50100"
   environment:
    - SFTPGO_FTPD__BINDINGS__0__PORT=2121
+   - SFTPGO_FTPD__BINDINGS__0__FORCE_PASSIVE_IP=10.105.31.10
   restart: always
 
 volumes:
