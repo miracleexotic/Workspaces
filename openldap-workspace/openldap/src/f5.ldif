@@ -1,0 +1,6 @@
+dn: ou=f5,ou=groups,dc=eip,dc=local
+objectClass: organizationalUnit
+gidNumber: 9000
+homeDirectory: /tmp
+loginShell: /bin/bash
+userPassword: 123456
